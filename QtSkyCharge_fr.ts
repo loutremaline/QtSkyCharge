@@ -177,7 +177,7 @@
     </message>
     <message>
         <source>Unknown (%1)</source>
-        <translation>Inconnu (%1)</translation>
+        <translation type="vanished">Inconnu (%1)</translation>
     </message>
     <message>
         <source>Cell %i:</source>
@@ -186,6 +186,62 @@
     <message>
         <source>Current :</source>
         <translation>Courant :</translation>
+    </message>
+    <message>
+        <source>Error: DC in too low.</source>
+        <translation>Erreur : alimentation trop faible.</translation>
+    </message>
+    <message>
+        <source>Error: DC in too high.</source>
+        <translation>Erreur : alimentation trop élevée.</translation>
+    </message>
+    <message>
+        <source>Error: connection break.</source>
+        <translation>Erreur : connexion rompue.</translation>
+    </message>
+    <message>
+        <source>Error: cell connector.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: bad connection.</source>
+        <translation>Erreur : mauvaise connexion.</translation>
+    </message>
+    <message>
+        <source>Error: over charge limit.</source>
+        <translation>Erreur : limite de capacité atteinte.</translation>
+    </message>
+    <message>
+        <source>Error: over time limit.</source>
+        <translation>Erreur : limite de temps atteinte.</translation>
+    </message>
+    <message>
+        <source>Error: internal temperature too high.</source>
+        <translation>Erreur : température chargeur trop élevée.</translation>
+    </message>
+    <message>
+        <source>Error: battery temperature too high.</source>
+        <translation>Erreur : température batterie trop élevée.</translation>
+    </message>
+    <message>
+        <source>Error: overload.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: reverse polarity.</source>
+        <translation>Erreur : polarité inversée.</translation>
+    </message>
+    <message>
+        <source>Error: no need charge.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error: battery was full.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other error (%1)</source>
+        <translation>Erreur autre (%1)</translation>
     </message>
 </context>
 <context>

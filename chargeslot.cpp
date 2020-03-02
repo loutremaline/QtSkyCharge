@@ -259,8 +259,61 @@ void ChargeSlot::monitoringTimer_timeout()
         statusStr.append(tr("Finish"));
         if (!isStarting) stopMonitoring();
         break;
+
+    case ChargeState::INPUT_LOW:
+        statusStr.append(tr("Error: DC in too low."));
+        stopMonitoring();
+        break;
+    case ChargeState::INPUT_HIGH:
+        statusStr.append(tr("Error: DC in too high."));
+        stopMonitoring();
+        break;
+    case ChargeState::CONNECTION_BREAK:
+        statusStr.append(tr("Error: connection break."));
+        stopMonitoring();
+        break;
+    case ChargeState::CELL_CONNECTOR:
+        statusStr.append(tr("Error: cell connector."));
+        stopMonitoring();
+        break;
+    case ChargeState::CHECK_MAIN_PORT:
+        statusStr.append(tr("Error: bad connection."));
+        stopMonitoring();
+        break;
+    case ChargeState::CAPACITY_CUT:
+        statusStr.append(tr("Error: over charge limit."));
+        stopMonitoring();
+        break;
+    case ChargeState::TIME_CUT:
+        statusStr.append(tr("Error: over time limit."));
+        stopMonitoring();
+        break;
+    case ChargeState::INT_TEMPERATURE:
+        statusStr.append(tr("Error: internal temperature too high."));
+        stopMonitoring();
+        break;
+    case ChargeState::BATT_TEMPERATURE:
+        statusStr.append(tr("Error: battery temperature too high."));
+        stopMonitoring();
+        break;
+    case ChargeState::OVER_LOAD:
+        statusStr.append(tr("Error: overload."));
+        stopMonitoring();
+        break;
+    case ChargeState::BATT_REVERSE:
+        statusStr.append(tr("Error: reverse polarity."));
+        stopMonitoring();
+        break;
+    case ChargeState::NO_NEED_CHARGE:
+        statusStr.append(tr("Error: no need charge."));
+        stopMonitoring();
+        break;
+    case ChargeState::BATT_FULL:
+        statusStr.append(tr("Error: battery was full."));
+        stopMonitoring();
+        break;
     default:
-        statusStr.append(QString(tr("Unknown (%1)").arg((int)chargeInfo.state)));
+        statusStr.append(QString(tr("Other error (%1)").arg((int)chargeInfo.state)));
     }
     ui->lblStatus->setText(statusStr);
 
