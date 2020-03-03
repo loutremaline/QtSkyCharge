@@ -66,6 +66,8 @@ void SystemSettings::initTimer_timeout()
         ui->spnCapacityLimit->setValue(m_sysInfo.capacityLimit);
         ui->chkTempCut->setChecked(m_sysInfo.tempCut);
         ui->spnTempLimit->setValue(m_sysInfo.tempLimit);
+        ui->spnDPNiCd->setValue(m_sysInfo.sensitivityNiCd);
+        ui->spnDPNiMH->setValue(m_sysInfo.sensitivityNiMH);
 
         m_initTimer.stop();
         ui->lblMessage->clear();
@@ -87,6 +89,8 @@ void SystemSettings::on_btnSave_clicked()
     m_sysInfo.capacityLimit = ui->spnCapacityLimit->value();
     m_sysInfo.tempCut = ui->chkTempCut->isChecked();
     m_sysInfo.tempLimit = ui->spnTempLimit->value();
+    m_sysInfo.sensitivityNiCd = ui->spnDPNiCd->value();
+    m_sysInfo.sensitivityNiMH = ui->spnDPNiMH->value();
 
     try {
         ChargerDevice charger;

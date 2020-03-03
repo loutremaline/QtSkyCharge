@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>247</width>
-    <height>334</height>
+    <height>461</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -102,6 +102,52 @@
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblDPNiMH">
+           <property name="text">
+            <string>D. Peak NiMH:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spnDPNiMH">
+           <property name="suffix">
+            <string>mV</string>
+           </property>
+           <property name="minimum">
+            <number>3</number>
+           </property>
+           <property name="maximum">
+            <number>15</number>
+           </property>
+           <property name="value">
+            <number>4</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="lblDPNiCd">
+           <property name="text">
+            <string>D. Peak NiCd:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="spnDPNiCd">
+           <property name="suffix">
+            <string>mV</string>
+           </property>
+           <property name="minimum">
+            <number>3</number>
+           </property>
+           <property name="maximum">
+            <number>15</number>
+           </property>
+           <property name="value">
+            <number>4</number>
+           </property>
+          </widget>
          </item>
          <item>
           <widget class="QCheckBox" name="chkSystemBuzzer">
