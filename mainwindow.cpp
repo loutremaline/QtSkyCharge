@@ -47,6 +47,7 @@ void MainWindow::initTimer_timeout()
         ui->statusbar->showMessage(qs.prepend(tr("Software version:")));
 
         slot1 = new ChargeSlot(ui->centralwidget, 0);
+        slot1->sizePolicy().setVerticalStretch(1);
         ui->centralwidget->layout()->addWidget(slot1);
 
         if (    chargerInfo.coreType == "100089" || chargerInfo.coreType == "100097" ||
@@ -54,6 +55,7 @@ void MainWindow::initTimer_timeout()
                 chargerInfo.coreType == "100125" || chargerInfo.coreType == "100157")
         {
             slot2 = new ChargeSlot(ui->centralwidget, 1);
+            slot2->sizePolicy().setVerticalStretch(1);
             ui->centralwidget->layout()->addWidget(slot2);
         }
         else
