@@ -181,8 +181,13 @@ std::array<unsigned char, BUFFER_SIZE> ChargerDevice::m_sendCommand(ChargerComma
         request[index++] = action->cycleDelay;
         request[index++] = action->cycleWay;
         request[index++] = action->peakSense;
-        request[index++] = action->predefinedDischargeCutVoltage[action->type] * action->cells / 256;
-        request[index++] = action->predefinedDischargeCutVoltage[action->type] * action->cells % 256;
+        if (action->type == BatteryType::NiCd || action->type == BatteryType::NiMH) {
+            request[index++] = action->cutVoltage / 256;
+            request[index++] = action->cutVoltage % 256;
+        } else {
+            request[index++] = action->predefinedDischargeCutVoltage[action->type] * action->cells / 256;
+            request[index++] = action->predefinedDischargeCutVoltage[action->type] * action->cells % 256;
+        }
         request[index++] = action->predefinedChargeCutVoltage[action->type] / 256;
         request[index++] = action->predefinedChargeCutVoltage[action->type] % 256;
         request[index++] = action->trickle / 256;

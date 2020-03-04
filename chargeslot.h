@@ -69,6 +69,7 @@ private:
     void startMonitoring();
     void stopMonitoring();
     void freezeUnfreezeCommand();
+    void setControlVisibility(bool batteryTypeChanged);
 
 };
 

@@ -45,12 +45,12 @@ public:
     /**
      * @brief Charge current (default 0.1A)
      */
-    unsigned short int chargeCurrent = 100;
+    unsigned short chargeCurrent = 100;
 
     /**
      * @brief Discharge Current (default : 0.1A)
      */
-    unsigned short int dischargeCurrent = 100;
+    unsigned short dischargeCurrent = 100;
 
     /**
      * @brief Charge / discharge cycle number (default : 1)
@@ -75,24 +75,29 @@ public:
     /**
      * @brief ??? mA (default : 0)
      */
-    unsigned short int trickle = 0;
+    unsigned short trickle = 0;
 
     /**
      * @brief Re-peak cycle count (default : 1)
      */
     unsigned char rPeakCount;
 
+    /**
+     * @brief Cut voltage for discharge NiXX (default: 3200mV).
+     */
+    unsigned short cutVoltage;
+
 
 
     /**
      * @brief Predefined discharge end voltage (for each battery type)
      */
-    unsigned short int predefinedDischargeCutVoltage[7] = {3200, 2600, 3100, 3200, 1000, 1000, 1800};
+    unsigned short predefinedDischargeCutVoltage[7] = {3200, 2600, 3100, 3200, 1000, 1000, 1800};
 
     /**
      * @brief Predefined charge end voltage (for each battery type)
      */
-    unsigned short int predefinedChargeCutVoltage[7] = {4200, 3600, 4100, 4350, 1800, 1800, 2400};
+    unsigned short predefinedChargeCutVoltage[7] = {4200, 3600, 4100, 4350, 1800, 1800, 2400};
 
 };
 

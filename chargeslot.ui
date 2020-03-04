@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>839</width>
-    <height>424</height>
+    <width>1146</width>
+    <height>582</height>
    </rect>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -158,6 +158,9 @@
           <property name="suffix">
            <string>A</string>
           </property>
+          <property name="decimals">
+           <number>1</number>
+          </property>
           <property name="minimum">
            <double>0.100000000000000</double>
           </property>
@@ -168,6 +171,79 @@
            <double>0.100000000000000</double>
           </property>
          </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblRepeakCount">
+          <property name="text">
+           <string>Repeak count:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spnRepeakCount">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCutVoltage">
+          <property name="text">
+           <string>Cut voltage :</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QDoubleSpinBox" name="spnCutVoltage">
+          <property name="suffix">
+           <string>V</string>
+          </property>
+          <property name="decimals">
+           <number>1</number>
+          </property>
+          <property name="minimum">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>25.199999999999999</double>
+          </property>
+          <property name="singleStep">
+           <double>0.100000000000000</double>
+          </property>
+          <property name="value">
+           <double>3.200000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblNbCycle">
+          <property name="text">
+           <string>Cycle count:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="spnCycleCount">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>5</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lblCycleOrder">
+          <property name="text">
+           <string>Cycle order:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="lstCycleOrder"/>
         </item>
         <item>
          <widget class="QPushButton" name="btnStart">

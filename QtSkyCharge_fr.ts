@@ -243,6 +243,22 @@
         <source>Other error (%1)</source>
         <translation>Erreur autre (%1)</translation>
     </message>
+    <message>
+        <source>Repeak count:</source>
+        <translation>Nb repeak :</translation>
+    </message>
+    <message>
+        <source>Cut voltage :</source>
+        <translation>Tension de coupure :</translation>
+    </message>
+    <message>
+        <source>Cycle count:</source>
+        <translation>Nombre de cycles :</translation>
+    </message>
+    <message>
+        <source>Cycle order:</source>
+        <translation>Ordre des cycles :</translation>
+    </message>
 </context>
 <context>
     <name>ChargerDevice</name>
@@ -261,6 +277,77 @@
     <message>
         <source>Reading data to device failed.</source>
         <translation>Erreur de lecture du données du périphérique.</translation>
+    </message>
+</context>
+<context>
+    <name>Labels</name>
+    <message>
+        <source>LiPo</source>
+        <translation>LiPo</translation>
+    </message>
+    <message>
+        <source>LiFe</source>
+        <translation>LiFe</translation>
+    </message>
+    <message>
+        <source>LiIo</source>
+        <translation>LiIo</translation>
+    </message>
+    <message>
+        <source>LiHV</source>
+        <translation>LiHV</translation>
+    </message>
+    <message>
+        <source>NiMH</source>
+        <translation>NiMH</translation>
+    </message>
+    <message>
+        <source>NiCd</source>
+        <translation>NiCd</translation>
+    </message>
+    <message>
+        <source>Pb</source>
+        <translation>Pb</translation>
+    </message>
+    <message>
+        <source>Charge</source>
+        <translation>Charge</translation>
+    </message>
+    <message>
+        <source>Fast charge</source>
+        <translation>Charge rapide</translation>
+    </message>
+    <message>
+        <source>Storage</source>
+        <translation>Stockage</translation>
+    </message>
+    <message>
+        <source>Discharge</source>
+        <translation>Décharge</translation>
+    </message>
+    <message>
+        <source>Balance</source>
+        <translation>Équilibrage</translation>
+    </message>
+    <message>
+        <source>Auto charge</source>
+        <translation>Charge auto.</translation>
+    </message>
+    <message>
+        <source>Re Peak</source>
+        <translation>Re Peak</translation>
+    </message>
+    <message>
+        <source>Cycle</source>
+        <translation>Cycle</translation>
+    </message>
+    <message>
+        <source>DCHG&gt;CHG</source>
+        <translation>DCHG&gt;CHG</translation>
+    </message>
+    <message>
+        <source>CHG&gt;DCHG</source>
+        <translation>CHG&gt;DCHG</translation>
     </message>
 </context>
 <context>
@@ -339,6 +426,18 @@
     <message>
         <source>Error :(</source>
         <translation>Erreur :(</translation>
+    </message>
+    <message>
+        <source>D. Peak NiMH:</source>
+        <translation>D. Peak NiMH :</translation>
+    </message>
+    <message>
+        <source>mV</source>
+        <translation>mV</translation>
+    </message>
+    <message>
+        <source>D. Peak NiCd:</source>
+        <translation>D. Peak NiCd :</translation>
     </message>
 </context>
 <context>

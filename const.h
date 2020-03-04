@@ -19,10 +19,22 @@
 #ifndef CONST_H
 #define CONST_H
 
+#include <QObject>
 #include <QString>
 
-const QString batteryTypesLabel[7] = {"LiPo", "LiFe", "LiIo", "LiHV", "NiMH", "NiCd", "Pb"};
-const QString modeLiLabel[5] = { "Charge", "Fast charge","Storage","Discharge","Balance"};
-const QString modeNiLabel[5] = {"Charge", "Auto charge","Discharge","Re Peak","Cycle"};
+class Labels : QObject
+{
+
+public:
+    static const QString batteryTypesLabel[7];
+    static const QString modeLiLabel[5];
+    static const QString modeNiLabel[5];
+    static const QString cycleOrderLabel[2];
+};
+
+const QString Labels::batteryTypesLabel[] = { tr("LiPo"), tr("LiFe"), tr("LiIo"), tr("LiHV"), tr("NiMH"), tr("NiCd"), tr("Pb") };
+const QString Labels::modeLiLabel[] = { tr("Charge"), tr("Fast charge"), tr("Storage") , tr("Discharge") , tr("Balance") };
+const QString Labels::modeNiLabel[] = { tr("Charge"), tr("Auto charge"), tr("Discharge"), tr("Re Peak") , tr("Cycle") };
+const QString Labels::cycleOrderLabel[] = { tr("DCHG>CHG"), tr("CHG>DCHG") };
 
 #endif // CONST_H

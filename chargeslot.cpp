@@ -16,6 +16,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with Foobar.  If not, see <https://www.gnu.org/licenses/>
  */
+#include <cmath>
 #include "const.h"
 #include "chargeslot.h"
 #include "ui_chargeslot.h"
@@ -37,8 +38,11 @@ ChargeSlot::ChargeSlot(QWidget *parent, unsigned char slotNumber) : QWidget(pare
 
     for (int i = BatteryType::LiPo; i <= BatteryType::NiCd; i++)
     {
-        ui->lstBatteryType->addItem(batteryTypesLabel[i], i);
+        ui->lstBatteryType->addItem(Labels::batteryTypesLabel[i], i);
     }
+
+    ui->lstCycleOrder->addItem(Labels::cycleOrderLabel[0], CycleWay::DCHG_CHG);
+    ui->lstCycleOrder->addItem(Labels::cycleOrderLabel[1], CycleWay::CHG_DCHG);
 
     on_sldCells_valueChanged(1);
 
@@ -129,8 +133,12 @@ void ChargeSlot::on_btnStart_clicked()
             action.type = (BatteryType)ui->lstBatteryType->currentData().value<unsigned char>();
             action.mode = ui->lstChargingMode->currentData().value<unsigned char>();
             action.cells = ui->sldCells->value();
-            action.chargeCurrent = static_cast<unsigned short int>(ui->spnChargeCurrent->value() * 1000.0);
-            action.dischargeCurrent = static_cast<unsigned short int>(ui->spnDischargeCurrent->value() * 1000.0);
+            action.cycleWay = (CycleWay)ui->lstCycleOrder->currentData().value<int>();
+            action.cycleCount = ui->spnCycleCount->value();
+            action.chargeCurrent = ((int)std::lround(ui->spnChargeCurrent->value() * 10.0)) * 100;
+            action.dischargeCurrent = ((int)std::lround(ui->spnDischargeCurrent->value() * 10.0)) * 100;
+            action.cutVoltage = ((int)std::lround(ui->spnCutVoltage->value() * 10.0)) * 100;
+            action.rPeakCount = ui->spnRepeakCount->value();
 
             if (action.type == BatteryType::Pb) {
                 ui->lblMessage->show();
@@ -342,38 +350,14 @@ void ChargeSlot::on_chkTemperature_stateChanged(int newState)
     showHideSerie(newState, &serieTemperature, &axisTemperature, Qt::AlignLeft);
 }
 
+void ChargeSlot::on_lstChargingMode_currentIndexChanged(int index)
+{
+    setControlVisibility(false);
+}
+
 void ChargeSlot::on_lstBatteryType_currentIndexChanged(int newValue)
 {
-    ui->lstChargingMode->clear();
-
-    BatteryType selectedBatteryType = (BatteryType) newValue;
-
-    switch (selectedBatteryType) {
-
-    case LiFe:
-    case LiIo:
-    case LiHV:
-    case LiPo:
-        for (int i = ModeLi::LiCharge; i <= ModeLi::LiBalance; i++) ui->lstChargingMode->addItem(modeLiLabel[i], i);
-        ui->lblCells->show();
-        ui->lblNCells->show();
-        ui->sldCells->show();
-        ui->lblCell1->show();
-        break;
-
-    case NiMH:
-    case NiCd:
-        ui->lblCells->hide();
-        ui->sldCells->hide();
-        ui->lblNCells->hide();
-        ui->sldCells->setValue(1);
-        ui->lblCell1->hide();
-        for (int i = ModeNi::NiCharge; i <= ModeNi::NiCycle; i++) ui->lstChargingMode->addItem(modeNiLabel[i], i);
-        break;
-    case Pb:
-        break;
-    }
-
+    setControlVisibility(true);
 }
 
 void ChargeSlot::on_sldCells_valueChanged(int value)
@@ -382,36 +366,69 @@ void ChargeSlot::on_sldCells_valueChanged(int value)
     txt.sprintf("%i", value);
     ui->lblNCells->setText(txt);
 
-    if (value > 1) ui->lblCell2->show(); else ui->lblCell2->hide();
-    if (value > 2) ui->lblCell3->show(); else ui->lblCell3->hide();
-    if (value > 3) ui->lblCell4->show(); else ui->lblCell4->hide();
-    if (value > 4) ui->lblCell5->show(); else ui->lblCell5->hide();
-    if (value > 5) ui->lblCell6->show(); else ui->lblCell6->hide();
+    bool isBatteryLi = ui->lstBatteryType->currentData().value<int>() <= 0x03;
+
+    ui->lblCell1->setVisible(isBatteryLi);
+    ui->lblCell2->setVisible(isBatteryLi && value > 1);
+    ui->lblCell3->setVisible(isBatteryLi && value > 2);
+    ui->lblCell4->setVisible(isBatteryLi && value > 3);
+    ui->lblCell5->setVisible(isBatteryLi && value > 4);
+    ui->lblCell6->setVisible(isBatteryLi && value > 5);
 }
 
-void ChargeSlot::on_lstChargingMode_currentIndexChanged(int index)
+
+
+void ChargeSlot::setControlVisibility(bool batteryTypeChanged)
 {
     int batteryType = ui->lstBatteryType->currentData().value<int>();
+    bool isBatteryLi = batteryType <= 0x03;
+    bool isBatteryNi = batteryType == 0x04 || batteryType == 0x05;
 
-    if ((batteryType <= 0x03 && index != (int)ModeLi::LiDischarge) || ((batteryType == 0x04 || batteryType == 0x05) && index != (int)ModeNi::NiDischarge)) {
-        ui->lblChargeCurrent->show();
-        ui->spnChargeCurrent->show();
-    } else {
-        ui->lblChargeCurrent->hide();
-        ui->spnChargeCurrent->hide();
+    ModeLi chargeModeLi = (ModeLi)ui->lstChargingMode->currentData().value<int>();
+    ModeNi chargeModeNi = (ModeNi)ui->lstChargingMode->currentData().value<int>();
+
+    if (batteryTypeChanged) {
+
+        ui->lblCells->setVisible(isBatteryLi);
+        ui->sldCells->setVisible(isBatteryLi);
+        ui->lblNCells->setVisible(isBatteryLi);
+
+        ui->lstChargingMode->clear();
+        if (isBatteryLi) {
+            for (int i = ModeLi::LiCharge; i <= ModeLi::LiBalance; i++) {
+                ui->lstChargingMode->addItem(Labels::modeLiLabel[i], i);
+            }
+        } else if (isBatteryNi) {
+            for (int i = ModeNi::NiCharge; i <= ModeNi::NiCycle; i++) {
+                ui->lstChargingMode->addItem(Labels::modeNiLabel[i], i);
+            }
+        }
     }
 
-    if ((batteryType <= 0x03 && index == (int)ModeLi::LiDischarge) || ((batteryType == 0x04 || batteryType == 0x05) && (index >= 0x02))) {
-        ui->lblDischargeCurrent->show();
-        ui->spnDischargeCurrent->show();
-    } else {
-        ui->lblDischargeCurrent->hide();
-        ui->spnDischargeCurrent->hide();
-    }
+    bool ctrlChargeVisible = (isBatteryLi && chargeModeLi != ModeLi::LiDischarge) || (isBatteryNi && chargeModeNi != ModeNi::NiDischarge);
+    ui->lblChargeCurrent->setVisible(ctrlChargeVisible);
+    ui->spnChargeCurrent->setVisible(ctrlChargeVisible);
 
+    bool ctrlDischargeVisible = (isBatteryLi && chargeModeLi == ModeLi::LiDischarge) || (isBatteryNi && (chargeModeNi == ModeNi::NiDischarge && chargeModeNi == ModeNi::NiCycle));
+    ui->lblDischargeCurrent->setVisible(ctrlDischargeVisible);
+    ui->spnDischargeCurrent->setVisible(ctrlDischargeVisible);
+
+    bool ctrlCutVoltageVisible = isBatteryNi && chargeModeNi == ModeNi::NiDischarge && chargeModeNi == ModeNi::NiCycle;
+    ui->lblCutVoltage->setVisible(ctrlCutVoltageVisible);
+    ui->spnCutVoltage->setVisible(ctrlCutVoltageVisible);
+
+    bool ctrlCycleVisible = isBatteryNi && chargeModeNi == ModeNi::NiCycle;
+    ui->lblNbCycle->setVisible(ctrlCycleVisible);
+    ui->spnCycleCount->setVisible(ctrlCycleVisible);
+    ui->lblCycleOrder->setVisible(ctrlCycleVisible);
+    ui->lstCycleOrder->setVisible(ctrlCycleVisible);
+
+    bool ctrlRepeakCount = isBatteryNi && chargeModeNi == ModeNi::NiRePeak;
+    ui->lblRepeakCount->setVisible(ctrlRepeakCount);
+    ui->spnRepeakCount->setVisible(ctrlRepeakCount);
+
+    on_sldCells_valueChanged(ui->sldCells->value());
 }
-
-
 
 void ChargeSlot::freezeUnfreezeCommand()
 {
@@ -419,7 +436,12 @@ void ChargeSlot::freezeUnfreezeCommand()
     ui->lstChargingMode->setEnabled(!isMonitoring);
     ui->sldCells->setEnabled(!isMonitoring);
     ui->spnChargeCurrent->setEnabled(!isMonitoring);
+    ui->spnDischargeCurrent->setEnabled(!isMonitoring);
     ui->btnSettings->setEnabled(!isMonitoring);
+    ui->spnRepeakCount->setEnabled(!isMonitoring);
+    ui->spnCutVoltage->setEnabled(!isMonitoring);
+    ui->lstCycleOrder->setEnabled(!isMonitoring);
+    ui->spnCycleCount->setEnabled(!isMonitoring);
 
     if (isMonitoring) {
         ui->btnStart->setText(tr("Stop"));
@@ -478,5 +500,4 @@ void ChargeSlot::refreshCurrentActionInfo(ChargeInfo info)
 {
     ui->lstBatteryType->setCurrentIndex(info.battery_type);
     ui->lstChargingMode->setCurrentIndex(info.mode);
-
 }
