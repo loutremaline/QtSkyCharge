@@ -236,12 +236,12 @@ void ChargeSlot::monitoringTimer_timeout()
 
     if (chargeInfo.battery_type == BatteryType::LiPo || chargeInfo.battery_type == BatteryType::LiHV || chargeInfo.battery_type == BatteryType::LiFe || chargeInfo.battery_type == BatteryType::LiIo)
     {
-        ui->lblCell1->setText(QString().sprintf(" %.2f", chargeInfo.vCell[0] / 1000.0).prepend(tr("Cell %i:").arg(1)).append(tr("V")));
-        ui->lblCell2->setText(QString().sprintf(" %.2f", chargeInfo.vCell[1] / 1000.0).prepend(tr("Cell %i:").arg(2)).append(tr("V")));
-        ui->lblCell3->setText(QString().sprintf(" %.2f", chargeInfo.vCell[2] / 1000.0).prepend(tr("Cell %i:").arg(3)).append(tr("V")));
-        ui->lblCell4->setText(QString().sprintf(" %.2f", chargeInfo.vCell[3] / 1000.0).prepend(tr("Cell %i:").arg(4)).append(tr("V")));
-        ui->lblCell5->setText(QString().sprintf(" %.2f", chargeInfo.vCell[4] / 1000.0).prepend(tr("Cell %i:").arg(5)).append(tr("V")));
-        ui->lblCell6->setText(QString().sprintf(" %.2f", chargeInfo.vCell[5] / 1000.0).prepend(tr("Cell %i:").arg(6)).append(tr("V")));
+        ui->lblCell1->setText(QString().sprintf(" %.2f", chargeInfo.vCell[0] / 1000.0).prepend(tr("Cell %1:").arg(1)).append(tr("V")));
+        ui->lblCell2->setText(QString().sprintf(" %.2f", chargeInfo.vCell[1] / 1000.0).prepend(tr("Cell %1:").arg(2)).append(tr("V")));
+        ui->lblCell3->setText(QString().sprintf(" %.2f", chargeInfo.vCell[2] / 1000.0).prepend(tr("Cell %1:").arg(3)).append(tr("V")));
+        ui->lblCell4->setText(QString().sprintf(" %.2f", chargeInfo.vCell[3] / 1000.0).prepend(tr("Cell %1:").arg(4)).append(tr("V")));
+        ui->lblCell5->setText(QString().sprintf(" %.2f", chargeInfo.vCell[4] / 1000.0).prepend(tr("Cell %1:").arg(5)).append(tr("V")));
+        ui->lblCell6->setText(QString().sprintf(" %.2f", chargeInfo.vCell[5] / 1000.0).prepend(tr("Cell %1:").arg(6)).append(tr("V")));
     }
 
     ui->lblCurTime->setText(QString().sprintf(" %02u:%02u:%02u", chargeInfo.time / 3600, chargeInfo.time / 60 % 60, chargeInfo.time % 60).prepend(tr("Time:")));
@@ -413,7 +413,7 @@ void ChargeSlot::setControlVisibility(bool batteryTypeChanged)
     ui->lblDischargeCurrent->setVisible(ctrlDischargeVisible);
     ui->spnDischargeCurrent->setVisible(ctrlDischargeVisible);
 
-    bool ctrlCutVoltageVisible = isBatteryNi && chargeModeNi == ModeNi::NiDischarge && chargeModeNi == ModeNi::NiCycle;
+    bool ctrlCutVoltageVisible = isBatteryNi && (chargeModeNi == ModeNi::NiDischarge || chargeModeNi == ModeNi::NiCycle);
     ui->lblCutVoltage->setVisible(ctrlCutVoltageVisible);
     ui->spnCutVoltage->setVisible(ctrlCutVoltageVisible);
 
