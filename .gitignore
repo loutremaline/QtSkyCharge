@@ -13,6 +13,7 @@
 *.rej
 *.so
 *.so.*
+*.user
 *_pch.h.cpp
 *_resource.rc
 *.qm
