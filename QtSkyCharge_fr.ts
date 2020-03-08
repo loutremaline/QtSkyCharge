@@ -172,18 +172,6 @@
         <translation>Température : %1°C</translation>
     </message>
     <message>
-        <source>Status :</source>
-        <translation type="vanished">Statut :</translation>
-    </message>
-    <message>
-        <source>Unknown (%1)</source>
-        <translation type="vanished">Inconnu (%1)</translation>
-    </message>
-    <message>
-        <source>Cell %i:</source>
-        <translation>Cellule %i :</translation>
-    </message>
-    <message>
         <source>Current :</source>
         <translation>Courant :</translation>
     </message>
@@ -258,6 +246,14 @@
     <message>
         <source>Cycle order:</source>
         <translation>Ordre des cycles :</translation>
+    </message>
+    <message>
+        <source>Cell %1:</source>
+        <translation>Cellule %1 :</translation>
+    </message>
+    <message>
+        <source>Waiting</source>
+        <translation>Attente</translation>
     </message>
 </context>
 <context>
@@ -438,13 +434,6 @@
     <message>
         <source>D. Peak NiCd:</source>
         <translation>D. Peak NiCd :</translation>
-    </message>
-</context>
-<context>
-    <name>start</name>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Démarrer</translation>
     </message>
 </context>
 </TS>

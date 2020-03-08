@@ -38,6 +38,7 @@ enum ChargeState
     IDLE = 0,
     CHARGING = 1,
     DISCHARGING = 2,
+    WAITING = 3,
     FINISH = 4,
     INPUT_LOW = 128,
     INPUT_HIGH = 129,

@@ -263,6 +263,9 @@ void ChargeSlot::monitoringTimer_timeout()
     case ChargeState::DISCHARGING:
         statusStr.append(tr("Discharging"));
         break;
+    case ChargeState::WAITING:
+        statusStr.append(tr("Waiting"));
+        break;
     case ChargeState::FINISH:
         statusStr.append(tr("Finish"));
         if (!isStarting) stopMonitoring();
@@ -409,7 +412,7 @@ void ChargeSlot::setControlVisibility(bool batteryTypeChanged)
     ui->lblChargeCurrent->setVisible(ctrlChargeVisible);
     ui->spnChargeCurrent->setVisible(ctrlChargeVisible);
 
-    bool ctrlDischargeVisible = (isBatteryLi && chargeModeLi == ModeLi::LiDischarge) || (isBatteryNi && (chargeModeNi == ModeNi::NiDischarge && chargeModeNi == ModeNi::NiCycle));
+    bool ctrlDischargeVisible = (isBatteryLi && chargeModeLi == ModeLi::LiDischarge) || (isBatteryNi && (chargeModeNi == ModeNi::NiDischarge || chargeModeNi == ModeNi::NiCycle));
     ui->lblDischargeCurrent->setVisible(ctrlDischargeVisible);
     ui->spnDischargeCurrent->setVisible(ctrlDischargeVisible);
 
